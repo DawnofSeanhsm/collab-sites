@@ -1,0 +1,628 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Seoul Sweets × Notre Don | Made together, Dec 5 + 6</title>
+<meta name="description" content="A collab menu from Seoul Sweets and Notre Don, the pastry boutique from Seongsu-dong, Seoul. Sat Dec 5 + Sun Dec 6, 1:00 PM to 3:30 PM, 308 5th Ave. Limited quantities.">
+<meta name="theme-color" content="#292A2D">
+<meta property="og:title" content="Seoul Sweets × Notre Don | Made together">
+<meta property="og:description" content="Sat Dec 5 + Sun Dec 6 at 308 5th Ave. Eight desserts, limited quantities. Play the game and reserve yours.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="img/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="img/favicon.png">
+<link rel="preload" href="fonts/instrument-serif.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/hanken.woff2" as="font" type="font/woff2" crossorigin>
+<script>document.documentElement.className='js'</script>
+<style>
+@font-face{font-family:'Instrument Serif';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/instrument-serif.woff2') format('woff2')}
+@font-face{font-family:'Instrument Serif';font-style:italic;font-weight:400;font-display:swap;src:url('fonts/instrument-serif-italic.woff2') format('woff2')}
+@font-face{font-family:'Hanken Grotesk';font-style:normal;font-weight:100 900;font-display:swap;src:url('fonts/hanken.woff2') format('woff2')}
+@font-face{font-family:'Press Start 2P';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/press-start-2p.woff2') format('woff2')}
+:root{--caviar:#292A2D;--caviar2:#232427;--cream:#FAF3E3;--dim:rgba(250,243,227,.72);--tan:#C69869;--tan-dim:rgba(198,152,105,.5);--cocoa:#6C5042;
+  --serif:'Instrument Serif',Georgia,serif;--sans:'Hanken Grotesk','Helvetica Neue',Arial,'Apple SD Gothic Neo','Noto Sans KR',sans-serif;--px:'Press Start 2P',monospace}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--caviar);color:var(--cream);font-family:var(--sans);font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+[hidden]{display:none!important}
+.wrap{width:100%;max-width:980px;margin:0 auto;padding:0 24px}
+.label{font-size:12px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--cream)}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:54px;padding:0 28px;border:2px solid var(--cream);background:var(--cream);color:var(--caviar);font-family:var(--sans);font-size:13.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;cursor:pointer;border-radius:0;transition:background .2s,color .2s}
+.btn:hover{background:#fff}
+.btn.ghost{background:transparent;color:var(--cream);border-color:var(--tan)}
+.btn.ghost:hover{background:rgba(198,152,105,.16)}
+.btn:disabled{opacity:.5;cursor:default}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--tan);outline-offset:3px}
+
+/* ---------- hero ---------- */
+.hero{padding:30px 0 64px}
+.marks{--cap:11px;display:flex;justify-content:center;align-items:flex-start;gap:calc(var(--cap) * 1.15);flex-wrap:nowrap}
+/* both logos are sized so their main words share one cap height and one top line */
+.marks .ssw{height:calc(var(--cap) * 1.97);width:auto}
+.marks .nd{height:calc(var(--cap) * 1.72);width:auto}
+.marks .x{font-family:var(--serif);font-size:calc(var(--cap) * 1.9);line-height:var(--cap);color:var(--cream)}
+@media (min-width:400px){.marks{--cap:12px}}
+@media (max-width:350px){.marks{--cap:9.6px}}
+.hero h1{margin:54px 0 0;font-family:var(--serif);font-weight:400;font-size:clamp(84px,25vw,210px);line-height:.88;letter-spacing:-.02em}
+.hero h1 em{font-style:italic}
+.js .hero h1{visibility:hidden}
+.js .hero h1.ready{visibility:visible}
+.hero h1 .ch{display:inline-block;opacity:0;transform:translateY(.12em)}
+.hero h1 .ch.on{opacity:1;transform:none;transition:opacity .09s linear,transform .16s ease-out}
+.hero h1 .dot{display:inline-block;opacity:0;transform-origin:50% 85%}
+.hero h1 .dot.on{opacity:1;animation:dotin .72s cubic-bezier(.3,1.6,.5,1) both}
+@keyframes dotin{0%{opacity:0;transform:translateY(-.9em) scale(.3)}45%{opacity:1;transform:translateY(0) scale(1.5,.7)}62%{transform:translateY(-.22em) scale(.9,1.15)}80%{transform:translateY(0) scale(1.12,.9)}100%{transform:none}}
+.hero .lede{margin:26px 0 0;max-width:30em;font-size:18px}
+.hero .seen{margin:14px 0 0;font-size:12px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--dim)}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:26px 20px;margin-top:44px;padding-top:26px;border-top:2px solid var(--tan)}
+.facts .v{margin-top:8px;font-family:var(--serif);font-size:30px;line-height:1.04}
+.facts .s{margin-top:6px;font-size:15px;color:var(--dim)}
+
+/* ---------- game ---------- */
+section{padding:64px 0}
+.play{background:var(--caviar2);text-align:center}
+h2{margin:12px 0 0;font-family:var(--serif);font-weight:400;font-size:clamp(46px,12vw,84px);line-height:.94;letter-spacing:-.015em}
+h2 em{font-style:italic}
+.play p.sub{margin:16px auto 0;max-width:27em;color:var(--dim)}
+.route{display:flex;justify-content:space-between;align-items:center;gap:10px;max-width:432px;margin:28px auto 10px;font-family:var(--px);font-size:8px;letter-spacing:.04em;color:var(--tan)}
+.route i{flex:1;height:0;border-top:2px dotted var(--tan-dim)}
+#game-wrap{position:relative;margin:0 auto;border:2px solid var(--tan);background:var(--caviar);box-sizing:content-box}
+#game{display:block;image-rendering:pixelated;image-rendering:crisp-edges}
+#game-wrap.playing #game{touch-action:none;cursor:none}
+.g-panel{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:18px;font-family:var(--px);text-transform:uppercase}
+.g-panel .big{font-size:20px;line-height:1.4;color:var(--cream);text-shadow:3px 3px 0 var(--cocoa)}
+.g-panel .small{font-size:9px;line-height:1.9;color:var(--cream)}
+.g-panel .tanline{color:var(--tan)}
+.g-over{background:rgba(35,36,39,.9)}
+.pbtn{font-family:var(--px);font-size:11px;line-height:1;padding:15px 16px 13px;border:0;background:var(--cream);color:var(--caviar);box-shadow:4px 4px 0 var(--cocoa);cursor:pointer;text-transform:uppercase;text-decoration:none;display:inline-block}
+.pbtn:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--cocoa)}
+.pbtn.alt{background:var(--tan)}
+.pbtn.line{background:transparent;color:var(--cream);box-shadow:none;outline:2px solid var(--tan);outline-offset:-2px}
+.blink{animation:blink 1.1s steps(2,jump-none) infinite}
+@keyframes blink{50%{opacity:.25}}
+.g-foot{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;max-width:432px;margin:12px auto 0;text-align:left}
+#g-caption{font-size:14px;line-height:1.4;color:var(--dim);min-height:2.8em}
+#g-caption b{display:block;color:var(--cream);font-weight:600}
+#g-mute{flex:none;background:none;border:0;padding:4px 0;color:var(--dim);font:inherit;font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;text-decoration:underline;text-underline-offset:4px}
+
+/* ---------- menu + reserve ---------- */
+.counts{display:grid;grid-template-columns:1fr 1fr;margin-top:34px}
+.counts>div{padding-right:16px}
+.counts>div+div{padding:0 0 0 20px;border-left:1px solid var(--tan)}
+.num{height:.84em;overflow:hidden;font-family:var(--serif);font-size:clamp(120px,34vw,240px);line-height:.84;color:var(--tan)}
+.num span{display:block;transform:translateY(0);transition:transform 2.2s cubic-bezier(.22,.7,.2,1)}
+.num.roll span{transform:translateY(-80%)}
+.num b{display:block;font-weight:400;height:.84em}
+.counts h3{margin:12px 0 0;font-family:var(--serif);font-weight:400;font-size:clamp(25px,6.4vw,40px);line-height:1}
+.counts p{margin:8px 0 0;font-size:14.5px;color:var(--dim)}
+.steplabel{display:flex;align-items:center;gap:12px;margin:46px 0 14px}
+.steplabel i{flex:1;height:1px;background:var(--tan-dim)}
+.days{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.days label,.tile{position:relative;display:block;cursor:pointer}
+.days input,.tile input{position:absolute;opacity:0;pointer-events:none}
+.days span{display:block;padding:14px 10px;border:2px solid var(--tan-dim);text-align:center;font-family:var(--serif);font-size:27px;line-height:1}
+.days small{display:block;margin-top:6px;font-family:var(--sans);font-size:10.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--dim)}
+.days input:checked+span{border-color:var(--cream);background:var(--cream);color:var(--caviar)}
+.days input:checked+span small{color:var(--cocoa)}
+.days input:focus-visible+span,.tile input:focus-visible+.t{outline:2px solid var(--tan);outline-offset:3px}
+.group{margin:26px 0 10px;font-size:12px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--dim)}
+.tiles{display:grid;grid-template-columns:1fr;gap:10px}
+.tile{opacity:0;transform:translateY(46px) scale(.96);transition:opacity .5s ease,transform .75s cubic-bezier(.2,1.25,.35,1)}
+.tile.in{opacity:1;transform:none}
+.tile .t{display:grid;grid-template-columns:64px 1fr auto;align-items:center;gap:14px;padding:10px 14px 10px 10px;border:2px solid var(--tan-dim);min-height:88px}
+.tile img{width:64px;height:64px;image-rendering:pixelated;image-rendering:crisp-edges}
+.tile .n{font-family:var(--serif);font-size:25px;line-height:1.05}
+.tile .f{margin-top:4px;font-size:14px;line-height:1.35;color:var(--dim)}
+.tile .flag{font-size:10.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);white-space:nowrap}
+.tile .dot{width:22px;height:22px;border:2px solid var(--tan);border-radius:50%;display:none}
+.selectable .tile .dot{display:block}
+.selectable .tile input:checked+.t{border-color:var(--cream);background:rgba(250,243,227,.07)}
+.selectable .tile input:checked+.t .dot{background:var(--cream);border-color:var(--cream);box-shadow:inset 0 0 0 4px var(--caviar)}
+.tile.sold{cursor:default}.tile.sold .t{opacity:.42}.tile.sold .dot{display:none}
+#menu:not(.selectable) .tile{cursor:default}
+.panel{margin-top:34px;padding:26px 22px;border:2px solid var(--tan)}
+.panel h3{margin:0;font-family:var(--serif);font-weight:400;font-size:38px;line-height:1}
+.panel p{margin:12px 0 0;color:var(--dim)}
+.panel p.strong{color:var(--cream)}
+.reveal{position:relative;min-height:2.1em;font-family:var(--serif);font-size:clamp(38px,10.5vw,58px);line-height:1.02;letter-spacing:-.01em}
+.reveal span{position:absolute;left:0;right:0;top:0;opacity:0;transform:translateY(30px);transition:opacity .55s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+.reveal span.in{opacity:1;transform:none}
+.reveal span.out{opacity:0;transform:translateY(-34px);transition:opacity .45s ease,transform .6s ease-in}
+.reveal span.last{position:relative;display:block}
+.reveal span em{font-style:italic;color:var(--tan)}
+.after{opacity:0;max-height:0;overflow:hidden;transform:translateY(14px);transition:opacity .7s ease .15s,transform .8s ease .15s,max-height .7s ease}
+.after.in{opacity:1;max-height:1200px;transform:none}
+.doorhead{margin:26px 0 0;padding:20px 18px 18px;border-left:4px solid var(--tan);background:rgba(198,152,105,.12)}
+.doorhead h3{margin:0;font-family:var(--serif);font-weight:400;font-size:clamp(34px,9.4vw,56px);line-height:1;letter-spacing:-.01em}
+.doorhead h3 em{font-style:italic}
+.doorhead p{margin:12px 0 0;font-size:16px;color:var(--dim)}
+.doorhead p b{color:var(--cream);font-weight:600}
+form{display:grid;gap:14px;margin-top:20px}
+form label.fld{display:block;font-size:11.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--dim)}
+form input[type=text],form input[type=email],form input[type=tel]{width:100%;margin-top:6px;min-height:52px;padding:0 14px;background:transparent;border:2px solid var(--tan-dim);border-radius:0;color:var(--cream);font:inherit;font-size:16px;letter-spacing:0;text-transform:none}
+form input:focus{outline:none;border-color:var(--cream)}
+.consent{display:grid;grid-template-columns:22px 1fr;gap:12px;align-items:start;font-size:13.5px;line-height:1.45;color:var(--dim)}
+.consent input{width:20px;height:20px;margin:2px 0 0;accent-color:#C69869}
+.chosen{font-family:var(--serif);font-size:25px;line-height:1.15}
+.msg{min-height:1.4em;margin:0;font-size:14.5px;color:var(--cream)}
+.rules{margin:18px 0 0;padding:0;list-style:none;font-size:14.5px;color:var(--dim)}
+.rules li{padding:9px 0;border-top:1px solid var(--tan-dim)}
+.ticket{text-align:center}
+.ticket .code{margin:16px auto 0;display:inline-block;padding:12px 16px 10px;border:2px dashed var(--tan);font-family:var(--px);font-size:15px;letter-spacing:.06em}
+.ticket img{width:96px;height:96px;margin:18px auto 0;image-rendering:pixelated}
+
+/* ---------- leaderboard ---------- */
+.board{max-width:432px;margin:26px auto 0;padding:18px 16px 16px;border:2px solid var(--tan);text-align:left}
+.board-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.board-prize{font-family:var(--px);font-size:8px;line-height:1.6;color:var(--tan);text-transform:uppercase}
+.board ol{list-style:none;margin:12px 0 0;padding:0}
+.board li{display:grid;grid-template-columns:30px 1fr auto;align-items:center;gap:8px;padding:9px 0;border-top:1px solid var(--tan-dim);font-size:16px}
+.board li .r{font-family:var(--px);font-size:10px;color:var(--dim)}
+.board li.win .r{color:var(--tan)}
+.board li .s{font-family:var(--px);font-size:10px}
+.board li.me{color:var(--tan)}
+.board .empty{padding:14px 0 4px;border-top:1px solid var(--tan-dim);color:var(--dim);font-size:15px}
+.board-you{margin:12px 0 0;font-size:15px;color:var(--cream)}
+.board .btn{width:100%;margin-top:14px}
+.board-fine{margin:12px 0 0;font-size:13px;line-height:1.45;color:var(--dim)}
+.linkbtn{background:none;border:0;padding:0;color:var(--cream);font:inherit;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.modal{position:fixed;inset:0;z-index:40;display:flex;align-items:flex-end;justify-content:center;background:rgba(20,20,22,.78);overflow-y:auto}
+.sheet{width:100%;max-width:480px;max-height:100%;overflow-y:auto;padding:24px 22px 26px;background:var(--caviar);border:2px solid var(--tan);border-bottom:0;text-align:left;animation:sheetin .35s cubic-bezier(.2,.8,.2,1)}
+@keyframes sheetin{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+.sheet h3{margin:10px 0 0;font-family:var(--serif);font-weight:400;font-size:40px;line-height:1}
+.sheet p{margin:10px 0 0;color:var(--dim);font-size:15.5px}
+.sheet .legal{font-size:12.5px;line-height:1.45}
+.sheet .row{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center}
+.sheet ul{margin:12px 0 0;padding:0 0 0 18px;font-size:14px;line-height:1.5;color:var(--dim)}
+.sheet ul li{margin:6px 0}
+@media (min-width:560px){.modal{align-items:center}.sheet{border-bottom:2px solid var(--tan)}}
+
+.where{background:var(--caviar2);text-align:center}
+.where .addr{margin:12px 0 0;font-family:var(--serif);font-size:clamp(40px,10vw,70px);line-height:.98}
+.where p{margin:14px auto 0;max-width:27em;color:var(--dim)}
+.where .btn{margin-top:26px}
+footer{padding:40px 0 60px;font-size:13px;color:var(--dim)}
+footer .marks{margin-bottom:18px}
+footer{text-align:center}
+.preview{position:fixed;left:0;right:0;bottom:0;z-index:30;padding:8px 12px;background:var(--tan);color:var(--caviar);font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;text-align:center}
+
+@media (min-width:760px){
+  .facts{grid-template-columns:repeat(3,1fr)}
+  .tiles{grid-template-columns:1fr 1fr}
+  .marks{--cap:17px}
+  .panel{padding:34px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.num span{transition:none}.blink{animation:none}.reveal span,.after,.tile{transition:none}.hero h1 .dot.on{animation:none}.sheet{animation:none}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="marks">
+      <img class="ssw" src="img/seoulsweets-wordmark.png" alt="Seoul Sweets, Korean Dessert Cafe" width="900" height="114">
+      <span class="x" aria-hidden="true">×</span>
+      <img class="nd" src="img/notredon.png" alt="Notre Don Pastry Boutique" width="640" height="137">
+    </div>
+    <h1 id="hero-title" aria-label="Made together.">Made<br><em>together.</em></h1>
+    <p class="lede">A collab menu from Seoul Sweets and Notre Don, the pastry boutique from Seongsu-dong, Seoul.</p>
+    <p class="seen">As seen on Bake Your Dream, streaming on Netflix</p>
+    <div class="cta">
+      <a class="btn" href="#menu" id="cta-main">Reserve yours</a>
+      <a class="btn ghost" href="#play">Play the game</a>
+    </div>
+    <div class="facts">
+      <div><div class="label">When</div><div class="v">Sat Dec 5<br>Sun Dec 6</div><div class="s">1:00 PM to 3:30 PM</div></div>
+      <div><div class="label">Where</div><div class="v">Seoul Sweets<br>308 5th Ave</div><div class="s">New York, NY 10001</div></div>
+      <div><div class="label">How</div><div class="v">First come,<br>first served</div><div class="s">Limited quantities</div></div>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="play" id="play">
+  <div class="wrap">
+    <div class="label">Eight desserts are on their way</div>
+    <h2>Seongsu-dong to <em>Fifth Avenue.</em></h2>
+    <p class="sub">Catch the desserts. Dodge the gluten bombs. It gets faster the whole way, and three strikes ends the trip.</p>
+    <div class="route" aria-hidden="true"><span>SEONGSU-DONG</span><i></i><span>5TH AVE</span></div>
+    <div id="game-wrap">
+      <canvas id="game" width="144" height="192" role="img" aria-label="Pixel game: catch falling desserts in a pastry box and dodge the gluten bombs."></canvas>
+      <div class="g-panel" id="g-start">
+        <div class="big">Fill<br>the box</div>
+        <div class="small">Drag to move<br><span class="tanline">3 lives · 40 sec</span><br>Dodge the gluten</div>
+        <button class="pbtn blink" type="button" data-g-play>Tap to play</button>
+      </div>
+      <div class="g-panel g-over" id="g-over" hidden>
+        <div class="big" id="g-over-title">Delivered!</div>
+        <div class="small" id="g-over-line" style="text-transform:none;font-family:var(--sans);font-size:14px;line-height:1.4"></div>
+        <div class="small"><span id="g-over-score"></span><br><span class="tanline" id="g-over-best"></span><br><span id="g-over-rank"></span></div>
+        <button class="pbtn" type="button" data-g-play>Play again</button>
+        <button class="pbtn alt" type="button" id="g-join" hidden>Join leaderboard</button>
+        <button class="pbtn line" type="button" id="g-share">Share score</button>
+      </div>
+    </div>
+    <div class="g-foot">
+      <div id="g-caption">Each dessert you catch shows up here with its flavors.</div>
+      <button id="g-mute" type="button" aria-pressed="false">Sound on</button>
+    </div>
+
+    <div class="board" id="board" hidden>
+      <div class="board-head"><span class="label">Today's leaderboard</span><span class="board-prize">Top 3 win a free drink</span></div>
+      <ol id="board-list"></ol>
+      <p class="board-you" id="board-you" hidden></p>
+      <button class="btn ghost" type="button" id="board-join">Join with your number</button>
+      <p class="board-fine">The day's top 3 each win one free drink, claimed at Seoul Sweets on Sat Dec 5 or Sun Dec 6, 1:00 PM to 3:30 PM only. <button class="linkbtn" type="button" id="rules-open">Full rules</button></p>
+    </div>
+  </div>
+</section>
+
+<section id="menu">
+  <div class="wrap">
+    <div class="label">The collab menu</div>
+    <h2>Eight desserts. <em>Two days.</em></h2>
+    <div class="doorhead">
+      <h3>Most of every batch is <em>sold at the door.</em></h3>
+      <p>Pre-orders are only a small share. Come <b>Sat Dec 5</b> or <b>Sun Dec 6</b>, <b>1 PM to 3:30 PM</b>. No pre-order needed.</p>
+    </div>
+    <div class="counts">
+      <div><div class="num" aria-label="4"><span aria-hidden="true"><b>0</b><b>1</b><b>2</b><b>3</b><b>4</b></span></div><h3>Signature desserts</h3><p>Created with Notre Don for this launch.</p></div>
+      <div><div class="num" aria-label="4"><span aria-hidden="true"><b>0</b><b>1</b><b>2</b><b>3</b><b>4</b></span></div><h3>Ssal cakes, redesigned</h3><p>Ssal 쌀 means rice.</p></div>
+    </div>
+
+    <form id="hold" novalidate>
+      <div id="step-day" hidden>
+        <div class="steplabel"><span class="label">1 · Pick your day</span><i></i></div>
+        <div class="days">
+          <label><input type="radio" name="day" value="sat" checked><span>Sat Dec 5<small>1:00 to 3:30 PM</small></span></label>
+          <label><input type="radio" name="day" value="sun"><span>Sun Dec 6<small>1:00 to 3:30 PM</small></span></label>
+        </div>
+        <div class="steplabel"><span class="label">2 · Pick one dessert</span><i></i></div>
+      </div>
+
+      <div id="tiles-wrap">
+        <div class="group">Signature desserts, with Notre Don</div>
+        <div class="tiles" data-group="signature"></div>
+        <div class="group">Ssal cakes, redesigned</div>
+        <div class="tiles" data-group="ssal"></div>
+      </div>
+
+      <div class="panel" id="p-open" hidden>
+        <div class="label">3 · Your details</div>
+        <p class="chosen" id="chosen">Pick a dessert above.</p>
+        <div style="display:grid;gap:14px;margin-top:18px">
+          <label class="fld">First name<input type="text" name="firstName" autocomplete="given-name" maxlength="60" required></label>
+          <label class="fld">Mobile<input type="tel" name="mobile" autocomplete="tel" inputmode="tel" maxlength="24" required></label>
+          <label class="fld">Email (optional)<input type="email" name="email" autocomplete="email" maxlength="120"></label>
+          <label class="consent"><input type="checkbox" name="sms"><span>Also text me restock and event alerts from Seoul Sweets. Msg and data rates may apply. Reply STOP to opt out. Not required to pre-order.</span></label>
+          <input type="text" name="company" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+          <button class="btn" type="submit">Hold my dessert</button>
+          <p class="msg" role="status" aria-live="polite"></p>
+        </div>
+        <ul class="rules">
+          <li>One dessert per person.</li>
+          <li>Your dessert is held until <span data-hold>2:30 PM</span>. Join the same line as everyone else and pay at the counter.</li>
+          <li>"Door only" means that dessert's pre-orders are gone. It is still sold at the door both days.</li>
+        </ul>
+      </div>
+    </form>
+
+    <div class="panel ticket" id="p-done" hidden>
+      <div class="label">You're in</div>
+      <h3 style="margin-top:10px;font-size:54px"><em>Held.</em></h3>
+      <img id="done-img" alt="" width="96" height="96">
+      <p class="strong chosen" id="done-what"></p>
+      <div class="code" id="done-code"></div>
+      <p>Join the line from 1 PM. Your dessert is held until <span data-hold>2:30 PM</span>. Show this screen<span id="done-mail"> or the email we just sent you</span> at the counter, and give the mobile number you used.</p>
+    </div>
+
+    <div class="panel" id="p-wait" hidden>
+      <h3 class="reveal" id="wait-title" aria-live="polite">Pre-orders open soon.</h3>
+      <div class="after in" id="wait-after">
+      <p class="strong" id="wait-line">Pre-orders are a small share of each day's batch. Most of it is held for the door on Dec 5 and 6, first come, first served from 1 PM.</p>
+      <form id="alert" novalidate hidden>
+        <label class="fld">First name<input type="text" name="firstName" autocomplete="given-name" maxlength="60" required></label>
+        <label class="fld">Mobile<input type="tel" name="mobile" autocomplete="tel" inputmode="tel" maxlength="24" required></label>
+        <label class="fld">Email (optional)<input type="email" name="email" autocomplete="email" maxlength="120"></label>
+        <p class="msg" style="min-height:0;font-size:13.5px;color:var(--dim)">By sending this, you agree that Seoul Sweets may text this number about pre-orders and restocks for this pop-up. Msg and data rates may apply. Reply STOP to opt out.</p>
+        <input type="checkbox" name="sms" checked hidden>
+        <input type="text" name="company" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+        <button class="btn" type="submit" id="alert-btn">Tell me first</button>
+        <p class="msg" role="status" aria-live="polite"></p>
+      </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="where">
+  <div class="wrap">
+    <div class="label">Where</div>
+    <p class="addr">Seoul Sweets<br>308 5th Ave</p>
+    <p>New York, NY 10001. Sat Dec 5 and Sun Dec 6, 1:00 PM to 3:30 PM. First come, first served.</p>
+    <a class="btn ghost" href="https://www.google.com/maps/search/?api=1&query=Seoul+Sweets+308+5th+Ave+New+York+NY+10001" target="_blank" rel="noopener">Open in Maps</a>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="marks">
+      <img class="ssw" src="img/seoulsweets-wordmark.png" alt="Seoul Sweets, Korean Dessert Cafe" width="900" height="114" loading="lazy">
+      <span class="x" aria-hidden="true">×</span>
+      <img class="nd" src="img/notredon.png" alt="Notre Don Pastry Boutique" width="640" height="137" loading="lazy">
+    </div>
+    Seoul Sweets × Notre Don, the pastry boutique from Seongsu-dong, Seoul · Dec 5 + 6, 2026 · 308 5th Ave, New York
+  </div>
+</footer>
+
+<div class="modal" id="join" role="dialog" aria-modal="true" aria-labelledby="join-title" hidden>
+  <div class="sheet">
+    <div class="label">Today's leaderboard</div>
+    <h3 id="join-title">You scored <span id="join-score">0</span>.</h3>
+    <p>The top 3 scores each day win a free drink at the pop-up. Add your number to put this score on the board.</p>
+    <form id="join-form" novalidate>
+      <label class="fld">First name (shown on the board)<input type="text" name="firstName" autocomplete="given-name" maxlength="14" required></label>
+      <label class="fld">Mobile<input type="tel" name="mobile" autocomplete="tel" inputmode="tel" maxlength="24" required></label>
+      <p class="legal">By joining, you agree to the <button class="linkbtn" type="button" data-rules>rules</button> and that Seoul Sweets may text this number about the leaderboard and your prize.</p>
+      <label class="consent"><input type="checkbox" name="sms"><span>Also text me Seoul Sweets news and offers. Msg and data rates may apply. Reply STOP to opt out. Not required to play or win.</span></label>
+      <input type="text" name="company" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+      <button class="btn" type="submit">Put me on the board</button>
+      <button class="btn ghost" type="button" id="join-close">Not now</button>
+      <p class="msg" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</div>
+
+<div class="modal" id="rules" role="dialog" aria-modal="true" aria-labelledby="rules-title" hidden>
+  <div class="sheet">
+    <div class="label">Leaderboard rules</div>
+    <h3 id="rules-title">How it works</h3>
+    <ul>
+      <li>A new leaderboard runs each day, midnight to midnight New York time, through <span data-lastday>Dec 5</span>.</li>
+      <li>The 3 highest scores of each day win. Ties go to whoever scored first.</li>
+      <li>One entry per mobile number. Your best score of the day counts. One prize per person for the whole promotion.</li>
+      <li>Prize: one free drink at Seoul Sweets, 308 5th Ave, New York. Claim it in person on Sat Dec 5 or Sun Dec 6 between 1:00 PM and 3:30 PM. It is not valid at any other time and has no cash value.</li>
+      <li>Winners get a text the next morning at the number they entered. Show that text at the counter.</li>
+      <li>Free to play. No purchase needed.</li>
+      <li>Scores that could not have come from normal play are removed.</li>
+      <li>Your number is used for this leaderboard and your prize. You only get Seoul Sweets news and offers by text if you tick that box.</li>
+    </ul>
+    <button class="btn" type="button" id="rules-close" style="width:100%;margin-top:18px">Got it</button>
+  </div>
+</div>
+
+<div class="preview" id="preview" hidden>Preview mode: nothing is saved</div>
+
+<script src="config.js"></script>
+<script src="sprites.js"></script>
+<script src="game.js"></script>
+<script>
+(function(){
+  'use strict';
+  var S = window.SITE || {}, KINDS = window.SS_SPRITES || [];
+  var qs = new URLSearchParams(location.search), src = qs.get('src') || '', preview = qs.get('preview') || (S.previewBar ? 'wave1_open' : null);
+  var DAYS = {sat:'Sat Dec 5', sun:'Sun Dec 6'};
+  var state = 'soon', sold = {sat:[], sun:[]}, holdTime = S.holdTime || '2:30 PM';
+  var $ = function(id){ return document.getElementById(id); };
+  var menu = $('menu'), hold = $('hold'), alertForm = $('alert');
+
+  // build the eight tiles from the same sprites the game uses
+  KINDS.forEach(function(k){
+    var l = document.createElement('label'); l.className = 'tile'; l.setAttribute('data-id', k.id);
+    l.innerHTML = '<input type="radio" name="item" value="' + k.id + '"><span class="t"><img alt="" width="64" height="64" src="' + window.SS_SPRITE_URL(k.id, 4) + '">' +
+      '<span><span class="n" style="display:block">' + k.name + '</span>' + (k.group === 'signature' ? '<span class="f" style="display:block">' + k.flavors + '</span>' : '') + '</span>' +
+      '<span class="flag" hidden>Door only</span><span class="dot"></span></span>';
+    document.querySelector('.tiles[data-group="' + k.group + '"]').appendChild(l);
+  });
+
+  // the tiles float up one at a time: the four signatures in order, then the four ssal cakes
+  [].forEach.call(document.querySelectorAll('.tiles'), function(g){
+    var ts = [].slice.call(g.querySelectorAll('.tile'));
+    function show(){ ts.forEach(function(t, i){ setTimeout(function(){ t.classList.add('in'); }, i * 190); }); }
+    if ('IntersectionObserver' in window) { var o = new IntersectionObserver(function(es){ if (es[0].isIntersecting) { o.disconnect(); show(); } }, {threshold:.15}); o.observe(g); } else show();
+  });
+
+  // "Made together." is typed out, then the period drops in
+  (function(){
+    var h = $('hero-title'); if (!h) return;
+    var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    h.innerHTML = ''; var chars = [];
+    [['Made', false], ['together', true]].forEach(function(w, wi){
+      var holder = w[1] ? document.createElement('em') : document.createElement('span');
+      w[0].split('').forEach(function(c){ var sp = document.createElement('span'); sp.className = 'ch'; sp.textContent = c; sp.setAttribute('aria-hidden', 'true'); holder.appendChild(sp); chars.push(sp); });
+      if (w[1]) { var d = document.createElement('span'); d.className = 'dot'; d.textContent = '.'; d.setAttribute('aria-hidden', 'true'); holder.appendChild(d); chars.push(d); }
+      h.appendChild(holder); if (wi === 0) h.appendChild(document.createElement('br'));
+    });
+    h.classList.add('ready');
+    if (still) { chars.forEach(function(c){ c.classList.add('on'); }); return; }
+    var stepMs = 1650 / (chars.length - 1);
+    chars.forEach(function(c, i){ setTimeout(function(){ c.classList.add('on'); }, 350 + i * stepMs + (i === chars.length - 1 ? 120 : 0)); });
+  })();
+
+  // the two numerals roll up to 4 when they scroll into view
+  var nums = [].slice.call(document.querySelectorAll('.num'));
+  if ('IntersectionObserver' in window) { var io = new IntersectionObserver(function(es){ es.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add('roll'); io.unobserve(e.target); } }); }, {threshold:.6}); nums.forEach(function(n){ io.observe(n); }); }
+  else nums.forEach(function(n){ n.classList.add('roll'); });
+
+  function day(){ return hold.day.value || 'sat'; }
+  function item(){ var c = hold.querySelector('input[name=item]:checked'); return c ? c.value : ''; }
+  function kind(id){ return KINDS.filter(function(k){ return k.id === id; })[0]; }
+  function isOpen(){ return state === 'wave1_open' || state === 'wave2_open'; }
+
+  function render(){
+    var open = isOpen();
+    [].forEach.call(document.querySelectorAll('[data-hold]'), function(e){ e.textContent = holdTime; });
+    menu.classList.toggle('selectable', open);
+    $('step-day').hidden = !open; $('p-open').hidden = !open;
+    $('p-wait').hidden = open; alertForm.hidden = (state === 'soon');
+    $('cta-main').textContent = open ? 'Reserve yours' : 'See the menu';
+    var out = open ? (sold[day()] || []) : [];
+    [].forEach.call(document.querySelectorAll('.tile'), function(t){
+      var id = t.getAttribute('data-id'), gone = out.indexOf(id) >= 0, inp = t.querySelector('input');
+      t.classList.toggle('sold', gone); t.querySelector('.flag').hidden = !gone; inp.disabled = !open || gone; if (gone && inp.checked) inp.checked = false;
+    });
+    if (!open) {
+      var T = {soon:['Pre-orders open soon.', 'Tell me first'], opening_soon:['Pre-orders open soon.', 'Tell me first'], wave1_soldout:['Most of every dessert is saved for the door.', 'Tell me when Wave 2 opens'], presale_closed:['Most of every dessert is saved for the door.', 'Tell me about restocks']}[state] || ['Pre-orders open soon.', 'Tell me first'];
+      $('alert-btn').textContent = T[1];
+      var SEQ = {wave1_soldout:['Pre-orders are sold out.', 'But wait...'], presale_closed:['Pre-orders are closed.', 'But wait...']}[state];
+      $('wait-line').innerHTML = SEQ ? 'Come to Seoul Sweets, 308 5th Ave, on <b>Sat Dec 5</b> or <b>Sun Dec 6</b>, 1 PM to 3:30 PM. First come, first served. No pre-order needed.' : "Pre-orders are a small share of each day's batch. Most of it is held for the door on Dec 5 and 6, first come, first served from 1 PM.";
+      if (revealKey !== state) { revealKey = state; reveal(SEQ, T[0]); }
+    } else revealKey = '';
+    chosen();
+  }
+  // "Sold out." floats up and away, then "But wait...", then the door message stays
+  var revealKey = '', revealRun = 0, revealIO = null;
+  function reveal(seq, last){
+    var h = $('wait-title'), after = $('wait-after'), run = ++revealRun;
+    if (revealIO) { revealIO.disconnect(); revealIO = null; }
+    h.setAttribute('aria-label', last);
+    var still = !seq || (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    if (still) { h.innerHTML = ''; var f = document.createElement('span'); f.className = 'last in'; f.textContent = last; h.appendChild(f); after.classList.add('in'); return; }
+    h.innerHTML = ''; after.classList.remove('in');
+    var lines = seq.concat([last]), i = 0;
+    function next(){
+      if (run !== revealRun) return;
+      var sp = document.createElement('span'), isLast = i === lines.length - 1; sp.setAttribute('aria-hidden', 'true');
+      if (isLast) { sp.className = 'last'; sp.innerHTML = 'Most of every dessert is <em>saved for the door.</em>'; } else sp.textContent = lines[i];
+      h.appendChild(sp); void sp.offsetWidth; sp.classList.add('in');
+      if (isLast) { setTimeout(function(){ if (run === revealRun) after.classList.add('in'); }, 500); return; }
+      setTimeout(function(){ if (run !== revealRun) return; sp.classList.remove('in'); sp.classList.add('out'); i++; setTimeout(function(){ if (sp.parentNode) sp.parentNode.removeChild(sp); next(); }, 480); }, i === 0 ? 1500 : 1250);
+    }
+    if ('IntersectionObserver' in window) { revealIO = new IntersectionObserver(function(es){ if (es[0].isIntersecting) { revealIO.disconnect(); revealIO = null; next(); } }, {threshold:.5}); revealIO.observe(h); }
+    else next();
+  }
+  function chosen(){ var k = kind(item()); $('chosen').textContent = k ? k.name + ' · ' + DAYS[day()] : 'Pick a dessert above.'; }
+  hold.addEventListener('change', function(ev){ if (ev.target.name === 'day') render(); else chosen(); });
+
+  var demoBoard = [{name:'Mina', score:2840}, {name:'Jay', score:2310}, {name:'Soo', score:1980}, {name:'Dani', score:1450}, {name:'Chris', score:990}];
+  function api(method, body, action){
+    if (preview) return new Promise(function(res){ setTimeout(function(){
+      if (method === 'GET' && action === 'board') return res({ok:true, open:true, day:'preview', lastDay:'Dec 5', top:demoBoard.slice(0, 10)});
+      if (method === 'GET') return res({ok:true, state:preview, sold:{sat:['ssal_mango'], sun:[]}, holdTime:holdTime});
+      if (body.type === 'score') {
+        var mine = demoBoard.filter(function(r){ return r.me; })[0];
+        if (!mine) { mine = {name: body.firstName, score: 0, me: true}; demoBoard.push(mine); }
+        mine.name = body.firstName; mine.score = Math.max(mine.score, body.score); demoBoard.sort(function(a, b){ return b.score - a.score; });
+        return res({ok:true, open:true, rank: demoBoard.indexOf(mine) + 1, best: mine.score, top: demoBoard.slice(0, 10)});
+      }
+      res(body.type === 'hold' ? {ok:true, code:'SS-DEMO', emailed:false} : {ok:true});
+    }, 350); });
+    if (!S.api) return Promise.resolve({ok:false, reason:'no_api'});
+    var opt = method === 'GET' ? {method:'GET'} : {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify(body)};
+    return fetch(S.api + (method === 'GET' ? '?action=' + (action || 'state') + '&t=' + Date.now() : ''), opt).then(function(r){ return r.json(); });
+  }
+  function load(){
+    return api('GET').then(function(j){
+      if (j && j.ok) { state = j.state || 'soon'; sold = j.sold || sold; holdTime = j.holdTime || holdTime; }
+      else state = 'soon';
+    }).catch(function(){ state = 'soon'; }).then(render);
+  }
+  function fields(f){ return {firstName:f.firstName.value.trim(), email:f.email ? f.email.value.trim().toLowerCase() : '', mobile:f.mobile.value.trim(), sms:f.sms.checked, src:src}; }
+  function phoneOk(m){ var d = String(m).replace(/\D/g, ''); return d.length >= 10 && d.length <= 15; }
+  function problem(d){
+    if (!d.firstName) return 'Add your first name.';
+    if (!phoneOk(d.mobile)) return 'Add a mobile number with its area code.';
+    if (d.email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(d.email)) return 'That email does not look right. Fix it or leave it empty.';
+    return '';
+  }
+
+  hold.addEventListener('submit', function(ev){
+    ev.preventDefault(); if (hold.company.value || !isOpen()) return;
+    var msg = hold.querySelector('.msg'), btn = hold.querySelector('button[type=submit]'), d = fields(hold), id = item(), dy = day();
+    if (!id) { msg.textContent = 'Pick a dessert first.'; return; }
+    if (problem(d)) { msg.textContent = problem(d); return; }
+    d.type = 'hold'; d.site = 'Seoul Sweets'; d.day = dy; d.item = id; d.itemName = kind(id).name;
+    btn.disabled = true; msg.textContent = 'Holding it...';
+    api('POST', d).then(function(j){
+      if (j && j.ok) {
+        hold.hidden = true; $('p-done').hidden = false;
+        $('done-what').textContent = kind(id).name + ' · ' + DAYS[dy]; $('done-code').textContent = j.code || ''; $('done-img').src = window.SS_SPRITE_URL(id, 6);
+        $('done-mail').hidden = !j.emailed; $('p-done').scrollIntoView({block:'center'});
+        return;
+      }
+      var R = {busy:'A lot of people are on this right now. Try again in a moment.', sold_out:'Pre-orders for that one just ran out. It will be at the door, or pick another.', duplicate:'This number already has a dessert on hold. One per person.', closed:'Pre-orders just closed.'};
+      msg.textContent = R[j && j.reason] || 'That did not go through. Please try again.';
+      if (j && (j.reason === 'sold_out' || j.reason === 'closed')) return load();
+    }).catch(function(){ msg.textContent = 'That did not go through. Please try again.'; }).then(function(){ btn.disabled = false; });
+  });
+
+  alertForm.addEventListener('submit', function(ev){
+    ev.preventDefault(); if (alertForm.company.value) return;
+    var msg = alertForm.querySelector('.msg'), btn = $('alert-btn'), d = fields(alertForm);
+    if (problem(d)) { msg.textContent = problem(d); return; }
+    d.type = 'signup'; d.site = 'Seoul Sweets'; d.state = state;
+    btn.disabled = true; msg.textContent = 'Sending...';
+    api('POST', d).then(function(j){ if (j && j.ok) { alertForm.reset(); msg.textContent = "You're on the list. We'll text you first."; } else throw 0; })
+      .catch(function(){ msg.textContent = 'That did not go through. Please try again.'; }).then(function(){ btn.disabled = false; });
+  });
+
+  /* ---------- leaderboard: today's top scores, joined with a mobile number ---------- */
+  var me = null, lastGame = null, boardOn = false, pendingJoin = 0;
+  try { me = JSON.parse(localStorage.getItem('ss_lb') || 'null'); } catch (e) {}
+  function esc(t){ return String(t).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  function drawBoard(j){
+    boardOn = !!(j && j.ok && j.open); $('board').hidden = !boardOn; if (!boardOn) return;
+    if (j.lastDay) [].forEach.call(document.querySelectorAll('[data-lastday]'), function(e){ e.textContent = j.lastDay; });
+    var top = (j.top || []).slice(0, 5), list = $('board-list'); list.innerHTML = '';
+    if (!top.length) list.innerHTML = '<div class="empty">No scores yet today. First on the board leads.</div>';
+    top.forEach(function(r, i){ var li = document.createElement('li'); li.className = (i < 3 ? 'win' : '') + (j.rank === i + 1 ? ' me' : ''); li.innerHTML = '<span class="r">' + (i + 1) + '</span><span>' + esc(r.name) + '</span><span class="s">' + r.score + '</span>'; list.appendChild(li); });
+    var you = $('board-you');
+    if (j.rank) { you.hidden = false; you.textContent = j.rank <= 3 ? "You're #" + j.rank + ' today with ' + j.best + '. Hold that spot until midnight.' : "You're #" + j.rank + ' today with ' + j.best + '. Top 3 win.'; $('g-over-rank').textContent = '#' + j.rank + ' today'; }
+    $('board-join').hidden = !!me; $('g-join').hidden = !!me;
+  }
+  function loadBoard(){ return api('GET', null, 'board').then(drawBoard).catch(function(){ drawBoard(null); }); }
+  function sendScore(extra){
+    if (!me || !lastGame) return Promise.resolve(null);
+    var d = {type:'score', site:'Seoul Sweets', firstName: me.name, mobile: me.mobile, sms: !!(extra && extra.sms), score: lastGame.score, caught: lastGame.caught, seconds: lastGame.seconds, src: src};
+    return api('POST', d).then(function(j){ if (j && j.ok) drawBoard(j); return j; });
+  }
+  function openJoin(){
+    if (!boardOn || me) return;
+    $('join-score').textContent = lastGame ? lastGame.score : 0;
+    $('join-title').firstChild.textContent = lastGame ? 'You scored ' : 'Your score so far: ';
+    $('join').hidden = false; document.body.style.overflow = 'hidden';
+  }
+  function closeModal(id){ $(id).hidden = true; if ($('join').hidden && $('rules').hidden) document.body.style.overflow = ''; }
+  window.SS_ON_GAME_END = function(g){
+    lastGame = g; $('g-over-rank').textContent = '';
+    if (!boardOn) return;
+    if (me) sendScore(); else { clearTimeout(pendingJoin); pendingJoin = setTimeout(openJoin, 900); }
+  };
+  [].forEach.call(document.querySelectorAll('[data-g-play]'), function(b){ b.addEventListener('click', function(){ clearTimeout(pendingJoin); }); });
+  $('board-join').addEventListener('click', openJoin); $('g-join').addEventListener('click', openJoin);
+  $('join-close').addEventListener('click', function(){ closeModal('join'); });
+  $('rules-open').addEventListener('click', function(){ $('rules').hidden = false; document.body.style.overflow = 'hidden'; });
+  $('rules-close').addEventListener('click', function(){ closeModal('rules'); });
+  [].forEach.call(document.querySelectorAll('[data-rules]'), function(b){ b.addEventListener('click', function(){ $('rules').hidden = false; }); });
+  $('join-form').addEventListener('submit', function(ev){
+    ev.preventDefault(); var f = ev.target, msg = f.querySelector('.msg'), btn = f.querySelector('button[type=submit]'); if (f.company.value) return;
+    var name = f.firstName.value.trim(), mobile = f.mobile.value.trim();
+    if (!name) { msg.textContent = 'Add the name to show on the board.'; return; }
+    if (!phoneOk(mobile)) { msg.textContent = 'Add a mobile number with its area code.'; return; }
+    me = {name: name, mobile: mobile}; if (!lastGame) lastGame = {score: 0, caught: 0, seconds: 0};
+    btn.disabled = true; msg.textContent = 'Adding you...';
+    sendScore({sms: f.sms.checked}).then(function(j){
+      if (j && j.ok) { try { localStorage.setItem('ss_lb', JSON.stringify(me)); } catch (e) {} msg.textContent = ''; closeModal('join'); $('board').scrollIntoView({block:'center', behavior:'smooth'}); }
+      else { me = null; msg.textContent = (j && j.reason === 'closed') ? 'The leaderboard has ended.' : 'That did not go through. Please try again.'; }
+    }).catch(function(){ me = null; msg.textContent = 'That did not go through. Please try again.'; }).then(function(){ btn.disabled = false; });
+  });
+
+  if (preview) $('preview').hidden = false;
+  if (S.previewBar) {
+    var bar = $('preview'), sel = document.createElement('select');
+    bar.textContent = 'Preview, nothing is saved. Show: ';
+    [['wave1_open','Wave 1 open'],['wave1_soldout','Wave 1 sold out'],['wave2_open','Wave 2 open'],['presale_closed','Pre-orders closed'],['opening_soon','Opening soon']].forEach(function(o){ var e = document.createElement('option'); e.value = o[0]; e.textContent = o[1]; sel.appendChild(e); });
+    sel.style.cssText = 'font:inherit;padding:4px 6px;border:2px solid #292A2D;background:#FAF3E3;color:#292A2D;border-radius:0';
+    sel.addEventListener('change', function(){ preview = sel.value; hold.hidden = false; $('p-done').hidden = true; hold.querySelector('.msg').textContent = ''; load(); });
+    bar.appendChild(sel);
+  }
+  render(); load(); loadBoard();
+})();
+</script>
+</body>
+</html>
