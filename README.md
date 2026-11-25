@@ -9,3 +9,5 @@ Two static pages (no build step) and the Google Sheet script behind them.
 | `apps-script/Code.gs` | Script that lives inside the "Collab Signups" Google Sheet. Not deployed by Vercel: paste it into the sheet's Apps Script editor. | none |
 
 Each page has one file to edit: `config.js` in its folder. A push to `main` redeploys both Vercel projects.
+
+The Barbam table block and the Seoul Sweets leaderboard stay off until the sheet web address is set in each `config.js` (`signupEndpoint` and `api`).
