@@ -8,7 +8,7 @@ window.SITE = {
      While this is '' the page shows "Pre-orders open soon" and takes no holds.
      Once it is set, the page reads its state from the Config tab of the
      Collab Signups sheet, so you open and close waves from the sheet, not here. */
-  api: '',
+  api: 'https://script.google.com/macros/s/AKfycbydX7Bb7yFQtnByL6bRGH1aUJPVYXlehpAGAqFgTia_kKcRmljkHyrZ2-yjauJmNNI/exec',
 
   /* Shown to guests before the sheet answers, and if it cannot be reached. */
   holdTime: '2:30 PM'

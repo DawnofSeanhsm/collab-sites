@@ -58,5 +58,5 @@ window.SITE = {
      cocktails, night and time to the "Barbam Picks" tab as they leave for Resy, and
      turns on the automatic block for parties of 3 or 4.
      Leave '' to switch all three off. */
-  signupEndpoint: ''
+  signupEndpoint: 'https://script.google.com/macros/s/AKfycbydX7Bb7yFQtnByL6bRGH1aUJPVYXlehpAGAqFgTia_kKcRmljkHyrZ2-yjauJmNNI/exec'
 };
