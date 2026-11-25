@@ -246,7 +246,7 @@ footer .marks img.bb{height:48px}footer .marks img.lc{height:52px}footer .marks 
     <div class="sec-head rise">
       <div class="label">Your seat comes with it</div>
       <h2>Choose your <em>first pour.</em></h2>
-      <p>Pick a cocktail, a night and a time, and tell us who's coming. Each guest prepays one cocktail, and your seats are held.</p>
+      <p>Pick a cocktail and a night, and tell us who's coming. You choose your time on Resy, each guest prepays one cocktail, and your seats are held.</p>
     </div>
 
     <div class="cards">
@@ -349,8 +349,8 @@ footer .marks img.bb{height:48px}footer .marks img.lc{height:52px}footer .marks 
     </div>
     <ol class="steps rise">
       <li><b>Choose your first cocktail</b><span>Bi-Naeng or Bungeoppang, from Le Chamber's menu for these two nights.</span></li>
-      <li><b>Pick your night and your time</b><span>Monday or Tuesday, then one of four seatings.</span></li>
-      <li><b>Confirm on Resy, and your seats are held</b><span>Each guest prepays one cocktail there. It is waiting to be made when you sit down, and everything else is ordered at the bar.</span></li>
+      <li><b>Pick your night</b><span>Monday or Tuesday. Tell us who's coming and what each of you is drinking.</span></li>
+      <li><b>Choose your time on Resy, and your seats are held</b><span>Four seatings a night. Each guest prepays one cocktail there. It is waiting to be made when you sit down, and everything else is ordered at the bar.</span></li>
     </ol>
     <div class="seatings rise" aria-label="Seatings each night">
       <div><b>6:00 PM</b><span>to 7:30 PM</span></div>
@@ -461,13 +461,14 @@ footer .marks img.bb{height:48px}footer .marks img.lc{height:52px}footer .marks 
       return u.toString();
     } catch(e){ return url; }
   }
+  var ASKTIME = S.askTime === true;   // false: the guest picks the time on Resy, not here
   var MAXP = Math.max(1, Math.min(12, S.maxParty || 4));
   // Most tables seat two. A party of BIGMIN or more needs one of the few larger tables, and each seating only has BIGLIMIT of them.
   var BIGMIN = 3, BIGLIMIT = S.bigTables === 0 ? 0 : Math.max(0, S.bigTables || 2), BIGFULL = S.bigFull || [], BIG = {}, bigSubs = [];
   function bigKey(night, label){ return NIGHTS[night].label + '|' + label; }
   function bigGone(night, time, label){ return BIGFULL.indexOf(night + ' ' + time) >= 0 || (BIG[bigKey(night, label)] || 0) >= BIGLIMIT; }
   function loadBig(){
-    if (!S.signupEndpoint) return;
+    if (!S.signupEndpoint || !ASKTIME) return;
     fetch(S.signupEndpoint + (S.signupEndpoint.indexOf('?') < 0 ? '?' : '&') + 'action=barbam')
       .then(function(r){ return r.json(); })
       .then(function(j){ if (!j || !j.ok) return; if (typeof j.limit === 'number') BIGLIMIT = j.limit; BIG = j.big || {}; bigSubs.forEach(function(f){ f(); }); })
@@ -485,7 +486,7 @@ footer .marks img.bb{height:48px}footer .marks img.lc{height:52px}footer .marks 
 
     function step(n){
       back.classList.toggle('step2', n === 2); back.classList.toggle('step3', n === 3);
-      stepLabel.textContent = !open ? 'Booking opens soon' : n === 1 ? 'Pick your night' : n === 2 ? NIGHTS[pick.night].label + ' · pick your time' : "Who's coming";
+      stepLabel.textContent = !open ? 'Booking opens soon' : n === 1 ? 'Pick your night' : n === 2 ? NIGHTS[pick.night].label + ' · pick your time' : ASKTIME ? "Who's coming" : NIGHTS[pick.night].label + " · who's coming";
     }
     // the flip: turn to edge-on, swap sides, turn back flat
     function flip(on, done){
@@ -501,19 +502,19 @@ footer .marks img.bb{height:48px}footer .marks img.lc{height:52px}footer .marks 
     slot.addEventListener('putback', function(){ slot.classList.remove('flipped'); step(1); });
     front.addEventListener('click', function(){ flip(true); });
     slot.querySelector('.unflip').addEventListener('click', function(){ flip(false, function(){ front.focus({preventScroll:true}); }); });
-    slot.querySelector('.change').addEventListener('click', function(){ step(back.classList.contains('step3') ? 2 : 1); });
+    slot.querySelector('.change').addEventListener('click', function(){ step(back.classList.contains('step3') && ASKTIME ? 2 : 1); });
 
     var p = slot.querySelector('[data-price]'); if (prices[drink]) p.textContent = prices[drink]; else p.remove();
     var fine = slot.querySelector('[data-fine]'); fine.textContent = S.finePrint || (open ? '' : 'Check back shortly, or ask your host at Barbam.');
 
     function counts(){ var c = {}; pick.guests.forEach(function(g){ c[g] = (c[g] || 0) + 1; }); return [drink, other].filter(function(k){ return c[k]; }).map(function(k){ return c[k] + ' x ' + NAMES[k]; }).join(', '); }
     function party(){
-      var gone = MAXP >= BIGMIN && bigGone(pick.night, pick.time, pick.label), cap = gone ? Math.min(MAXP, BIGMIN - 1) : MAXP;
+      var gone = ASKTIME && MAXP >= BIGMIN && bigGone(pick.night, pick.time, pick.label), cap = gone ? Math.min(MAXP, BIGMIN - 1) : MAXP;
       if (pick.guests.length > cap) pick.guests.length = cap;
       nEl.textContent = pick.guests.length;
       slot.querySelector('[data-less]').disabled = pick.guests.length <= 1; slot.querySelector('[data-more]').disabled = pick.guests.length >= cap;
       bigEl.classList.toggle('gone', gone);
-      bigEl.textContent = MAXP < BIGMIN ? '' : gone ? 'The tables for ' + BIGMIN + ' or ' + MAXP + ' are taken at this time. Tables for two are open, or go back and pick another time.'
+      bigEl.textContent = MAXP < BIGMIN ? '' : !ASKTIME ? 'Up to ' + MAXP + ' guests. Most tables seat two.' : gone ? 'The tables for ' + BIGMIN + ' or ' + MAXP + ' are taken at this time. Tables for two are open, or go back and pick another time.'
         : 'Most tables seat two. Only ' + (WORDS[BIGLIMIT] || BIGLIMIT) + ' per seating fit' + (BIGLIMIT === 1 ? 's ' : ' ') + BIGMIN + (MAXP > BIGMIN ? ' or ' + MAXP : '') + '.';
       guestsEl.innerHTML = '';
       pick.guests.forEach(function(g, i){
@@ -521,7 +522,7 @@ footer .marks img.bb{height:48px}footer .marks img.lc{height:52px}footer .marks 
         [drink, other].forEach(function(k){ var b = document.createElement('button'); b.type = 'button'; b.textContent = NAMES[k]; b.setAttribute('aria-pressed', g === k ? 'true' : 'false'); b.addEventListener('click', function(){ pick.guests[i] = k; party(); }); row.querySelector('.seg').appendChild(b); });
         guestsEl.appendChild(row);
       });
-      sum.innerHTML = NIGHTS[pick.night].label + ' · ' + pick.label + '<small>' + counts().replace(/ x /g, ' × ') + (prices[drink] ? ' · ' + prices[drink] + ' each' : '') + '</small>';
+      sum.innerHTML = NIGHTS[pick.night].label + (pick.label ? ' · ' + pick.label : '') + '<small>' + counts().replace(/ x /g, ' × ') + (prices[drink] ? ' · ' + prices[drink] + ' each' : '') + '</small>';
       go.href = tagged(linkFor(drink, pick.night, pick.time), drink, pick.night, pick.time, pick.guests.length);
     }
     slot.querySelector('[data-less]').addEventListener('click', function(){ if (pick.guests.length > 1) { pick.guests.pop(); party(); } });
@@ -533,6 +534,7 @@ footer .marks img.bb{height:48px}footer .marks img.lc{height:52px}footer .marks 
       if (!linkFor(drink, night, '')) { b.disabled = true; return; }
       b.addEventListener('click', function(){
         pick.night = night; seats.innerHTML = ''; loadBig();
+        if (!ASKTIME) { pick.time = ''; pick.label = ''; pmsg.textContent = ''; party(); step(3); return; }
         TIMES.forEach(function(t){
           var full = isFull(drink, night, t.key), x = document.createElement('button');
           x.type = 'button'; x.className = 'btn'; x.textContent = full ? t.label + ' · full' : t.label; x.disabled = full;
@@ -549,7 +551,7 @@ footer .marks img.bb{height:48px}footer .marks img.lc{height:52px}footer .marks 
       if (!name) { ev.preventDefault(); pmsg.textContent = 'Add a name for the booking first.'; nameIn.focus(); return; }
       if (!S.signupEndpoint) return;
       var req = {method:'POST', keepalive:true, headers:{'Content-Type':'text/plain;charset=utf-8'}, body: JSON.stringify({type:'pick', name: name, partySize: pick.guests.length, cocktails: counts(), night: NIGHTS[pick.night].label, seating: pick.label, src: src})};
-      if (pick.guests.length < BIGMIN) { try { fetch(S.signupEndpoint, req).catch(function(){}); } catch(e){} return; }
+      if (!ASKTIME || pick.guests.length < BIGMIN) { try { fetch(S.signupEndpoint, req).catch(function(){}); } catch(e){} return; }
       // a party of 3 or 4: ask the sheet for one of the larger tables first, then go to Resy. If the sheet is slow or down, let the guest through.
       ev.preventDefault(); if (sending) return;
       sending = true; go.classList.add('wait'); pmsg.textContent = 'Checking the table...';
@@ -565,6 +567,7 @@ footer .marks img.bb{height:48px}footer .marks img.lc{height:52px}footer .marks 
         }).catch(leave);
       } catch(e){ leave(); }
     });
+    if (!ASKTIME) slot.querySelector('.resynote').textContent = 'On Resy, pick your time and the same number of guests, then confirm. Each seating is 90 minutes. Each guest prepays one cocktail, and that holds the seats.';
     step(1);
   });
 

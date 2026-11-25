@@ -2,7 +2,7 @@
    Barbam x Le Chamber: the only file you need to edit.
    Save, then redeploy (vercel --prod). Nothing else has to change.
 
-   The guest picks a cocktail, a night and a time, gives a name and the
+   The guest picks a cocktail and a night, gives a name and the
    number of guests, then the last button ("Continue to Resy") opens the
    link you set below.
 ------------------------------------------------------------------- */
@@ -26,7 +26,12 @@ window.SITE = {
     }
   },
 
-  /* Times to show as full. Example: ['dec7 7:30 PM', 'dec8 9:00 PM'] */
+  /* false = the guest picks the cocktail and night here and the time on Resy.
+     true  = the page also asks for the time (four seatings), and the automatic block on
+             parties of 3 or 4 works. With false, that block is off and Resy's floor plan is the only stop. */
+  askTime: false,
+
+  /* Only used when askTime is true. Times to show as full. Example: ['dec7 7:30 PM', 'dec8 9:00 PM'] */
   full: [],
 
   /* Largest party the page lets a guest enter. */
