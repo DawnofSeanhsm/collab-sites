@@ -56,7 +56,7 @@ window.SITE = {
 
   /* One short line at the bottom of each card. Leave '' to hide.
      Example: 'Prepaid cocktails are non-refundable inside 24 hours.' */
-  finePrint: '$27 per guest, prepaid on Resy. Cancel at least 24 hours before your seating for a full refund. Later cancellations and no-shows are not refunded.',
+  finePrint: '$27 per guest, prepaid on Resy. Full refund if you cancel by 6 PM two days before your night: Sat Dec 5 for Monday, Sun Dec 6 for Tuesday. After that, and for no-shows, it is not refunded.',
 
   /* Google Apps Script web app URL (ends in /exec).
      Turns on the "Can't make either night?" list, writes each guest's name, party size,
