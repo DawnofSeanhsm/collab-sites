@@ -159,6 +159,8 @@ form input:focus{outline:none;border-color:var(--cream)}
 .board{max-width:432px;margin:26px auto 0;padding:18px 16px 16px;border:2px solid var(--tan);text-align:left}
 .board-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
 .board-prize{font-family:var(--px);font-size:8px;line-height:1.6;color:var(--tan);text-transform:uppercase}
+.board-prize .any{font-size:11px;color:var(--cream)}
+.any{font-weight:800;font-size:1.15em;letter-spacing:.04em}
 .board ol{list-style:none;margin:12px 0 0;padding:0}
 .board li{display:grid;grid-template-columns:30px 1fr auto;align-items:center;gap:8px;padding:9px 0;border-top:1px solid var(--tan-dim);font-size:16px}
 .board li .r{font-family:var(--px);font-size:10px;color:var(--dim)}
@@ -210,7 +212,7 @@ footer{text-align:center}
     </div>
     <h1 id="hero-title" aria-label="Made together.">Made<br><em>together.</em></h1>
     <p class="lede">A collab menu from Seoul Sweets and Notre Don, the pastry boutique from Seongsu-dong, Seoul.</p>
-    <p class="seen">As seen on Bake Your Dream, streaming on Netflix</p>
+    <p class="seen">As seen on Netflix Korea's Bake Your Dream</p>
     <div class="cta">
       <a class="btn" href="#menu" id="cta-main">Reserve yours</a>
       <a class="btn ghost" href="#play">Play the game</a>
@@ -252,11 +254,11 @@ footer{text-align:center}
     </div>
 
     <div class="board" id="board" hidden>
-      <div class="board-head"><span class="label">Today's leaderboard</span><span class="board-prize">Top 3 win a free drink</span></div>
+      <div class="board-head"><span class="label">Today's leaderboard</span><span class="board-prize">Top 3 win <strong class="any">ANY</strong> drink</span></div>
       <ol id="board-list"></ol>
       <p class="board-you" id="board-you" hidden></p>
       <button class="btn ghost" type="button" id="board-join">Join with your number</button>
-      <p class="board-fine">The day's top 3 each win one free drink, claimed at Seoul Sweets on Sat Dec 5 or Sun Dec 6, 1:00 PM to 3:30 PM only. <button class="linkbtn" type="button" id="rules-open">Full rules</button></p>
+      <p class="board-fine">The day's top 3 each win <strong class="any">ANY</strong> drink on our menu, free, claimed at Seoul Sweets on Sat Dec 5 or Sun Dec 6, 1:00 PM to 3:30 PM only. <button class="linkbtn" type="button" id="rules-open">Full rules</button></p>
     </div>
   </div>
 </section>
@@ -364,7 +366,7 @@ footer{text-align:center}
   <div class="sheet">
     <div class="label">Today's leaderboard</div>
     <h3 id="join-title">You scored <span id="join-score">0</span>.</h3>
-    <p>The top 3 scores each day win a free drink at the pop-up. Add your number to put this score on the board.</p>
+    <p>The top 3 scores each day win <strong class="any">ANY</strong> drink on our menu, free, at the pop-up. Add your number to put this score on the board.</p>
     <form id="join-form" novalidate>
       <label class="fld">First name (shown on the board)<input type="text" name="firstName" autocomplete="given-name" maxlength="14" required></label>
       <label class="fld">Mobile<input type="tel" name="mobile" autocomplete="tel" inputmode="tel" maxlength="24" required></label>
@@ -386,7 +388,7 @@ footer{text-align:center}
       <li>A new leaderboard runs each day, midnight to midnight New York time, through <span data-lastday>Dec 5</span>.</li>
       <li>The 3 highest scores of each day win. Ties go to whoever scored first.</li>
       <li>One entry per mobile number. Your best score of the day counts. One prize per person for the whole promotion.</li>
-      <li>Prize: one free drink at Seoul Sweets, 308 5th Ave, New York. Claim it in person on Sat Dec 5 or Sun Dec 6 between 1:00 PM and 3:30 PM. It is not valid at any other time and has no cash value.</li>
+      <li>Prize: one free drink of your choice, <strong class="any">ANY</strong> drink on the Seoul Sweets menu, at Seoul Sweets, 308 5th Ave, New York. Claim it in person on Sat Dec 5 or Sun Dec 6 between 1:00 PM and 3:30 PM. It is not valid at any other time and has no cash value.</li>
       <li>Winners get a text the next morning at the number they entered. Show that text at the counter.</li>
       <li>Free to play. No purchase needed.</li>
       <li>Scores that could not have come from normal play are removed.</li>

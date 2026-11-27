@@ -513,8 +513,9 @@ footer .marks img.bb{height:48px}footer .marks img.lc{height:52px}footer .marks 
       if (pick.guests.length > cap) pick.guests.length = cap;
       nEl.textContent = pick.guests.length;
       slot.querySelector('[data-less]').disabled = pick.guests.length <= 1; slot.querySelector('[data-more]').disabled = pick.guests.length >= cap;
-      bigEl.classList.toggle('gone', gone);
-      bigEl.textContent = MAXP < BIGMIN ? '' : !ASKTIME ? 'Up to ' + MAXP + ' guests. Most tables seat two.' : gone ? 'The tables for ' + BIGMIN + ' or ' + MAXP + ' are taken at this time. Tables for two are open, or go back and pick another time.'
+      var many = !ASKTIME && pick.guests.length >= BIGMIN;
+      bigEl.classList.toggle('gone', gone || many);
+      bigEl.textContent = MAXP < BIGMIN ? '' : !ASKTIME ? (many ? 'Tables for ' + BIGMIN + ' or ' + MAXP + ' are limited. If your time isn\'t open on Resy, try another time there.' : 'Up to ' + MAXP + ' guests. Most tables seat two.') : gone ? 'The tables for ' + BIGMIN + ' or ' + MAXP + ' are taken at this time. Tables for two are open, or go back and pick another time.'
         : 'Most tables seat two. Only ' + (WORDS[BIGLIMIT] || BIGLIMIT) + ' per seating fit' + (BIGLIMIT === 1 ? 's ' : ' ') + BIGMIN + (MAXP > BIGMIN ? ' or ' + MAXP : '') + '.';
       guestsEl.innerHTML = '';
       pick.guests.forEach(function(g, i){
