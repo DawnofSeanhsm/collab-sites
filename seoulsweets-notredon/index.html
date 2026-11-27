@@ -122,7 +122,18 @@ h2 em{font-style:italic}
 .selectable .tile .dot{display:block}
 .selectable .tile input:checked+.t{border-color:var(--cream);background:rgba(250,243,227,.07)}
 .selectable .tile input:checked+.t .dot{background:var(--cream);border-color:var(--cream);box-shadow:inset 0 0 0 4px var(--caviar)}
-.tile.sold{cursor:default}.tile.sold .t{opacity:.42}.tile.sold .dot{display:none}
+.tile.sold{cursor:default}.tile.sold .t{border-style:dashed}.tile.sold img,.tile.sold .n,.tile.sold .f{opacity:.4}.tile.sold .dot{display:none}
+.tile.sold .flag{text-align:right;color:var(--cream)}
+.tile .flag b{display:block;padding:5px 9px;border:1.5px solid var(--cream);font-size:11px;letter-spacing:.2em}
+.tile .flag small{display:block;margin-top:6px;font-size:9.5px;font-weight:600;letter-spacing:.16em;color:var(--tan)}
+.qty{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+.qty label{position:relative;display:block;cursor:pointer}
+.qty input{position:absolute;opacity:0;pointer-events:none}
+.qty span{display:block;padding:12px 10px;text-align:center;border:2px solid var(--tan-dim);font-family:var(--serif);font-size:24px;line-height:1}
+.qty input:checked+span{border-color:var(--cream);background:var(--cream);color:var(--caviar)}
+.qty input:disabled+span{opacity:.35;border-style:dashed;cursor:default}
+.qty input:focus-visible+span{outline:2px solid var(--tan);outline-offset:3px}
+.qtynote{margin:8px 0 0;font-size:13px;color:var(--tan)}
 #menu:not(.selectable) .tile{cursor:default}
 .panel{margin-top:34px;padding:26px 22px;border:2px solid var(--tan)}
 .panel h3{margin:0;font-family:var(--serif);font-weight:400;font-size:38px;line-height:1}
@@ -142,7 +153,7 @@ h2 em{font-style:italic}
 .doorhead p{margin:12px 0 0;font-size:16px;color:var(--dim)}
 .doorhead p b{color:var(--cream);font-weight:600}
 form{display:grid;gap:14px;margin-top:20px}
-form label.fld{display:block;font-size:11.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--dim)}
+form label.fld,form .fld{display:block;font-size:11.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--dim)}
 form input[type=text],form input[type=email],form input[type=tel]{width:100%;margin-top:6px;min-height:52px;padding:0 14px;background:transparent;border:2px solid var(--tan-dim);border-radius:0;color:var(--cream);font:inherit;font-size:16px;letter-spacing:0;text-transform:none}
 form input:focus{outline:none;border-color:var(--cream)}
 .consent{display:grid;grid-template-columns:22px 1fr;gap:12px;align-items:start;font-size:13.5px;line-height:1.45;color:var(--dim)}
@@ -296,6 +307,14 @@ footer{text-align:center}
       <div class="panel" id="p-open" hidden>
         <div class="label">3 · Your details</div>
         <p class="chosen" id="chosen">Pick a dessert above.</p>
+        <div id="qty-wrap" hidden style="margin-top:18px">
+          <span class="fld" style="display:block">How many</span>
+          <div class="qty" role="radiogroup" aria-label="How many">
+            <label><input type="radio" name="qty" value="1" checked><span>1</span></label>
+            <label><input type="radio" name="qty" value="2"><span>2</span></label>
+          </div>
+          <p class="qtynote" id="qty-note" hidden></p>
+        </div>
         <div style="display:grid;gap:14px;margin-top:18px">
           <label class="fld">First name<input type="text" name="firstName" autocomplete="given-name" maxlength="60" required></label>
           <label class="fld">Mobile<input type="tel" name="mobile" autocomplete="tel" inputmode="tel" maxlength="24" required></label>
@@ -306,9 +325,9 @@ footer{text-align:center}
           <p class="msg" role="status" aria-live="polite"></p>
         </div>
         <ul class="rules">
-          <li>One dessert per person.</li>
+          <li id="rule-qty">One dessert per person.</li>
           <li>Your dessert is held until <span data-hold>2:30 PM</span>. Join the same line as everyone else and pay at the counter.</li>
-          <li>"Door only" means that dessert's pre-orders are gone. It is still sold at the door both days.</li>
+          <li>"Sold out" means that dessert's pre-orders are gone. It is still sold at the door both days.</li>
         </ul>
       </div>
     </form>
@@ -409,7 +428,7 @@ footer{text-align:center}
   var S = window.SITE || {}, KINDS = window.SS_SPRITES || [];
   var qs = new URLSearchParams(location.search), src = qs.get('src') || '', preview = qs.get('preview') || (S.previewBar ? 'wave1_open' : null);
   var DAYS = {sat:'Sat Dec 5', sun:'Sun Dec 6'};
-  var state = 'soon', sold = {sat:[], sun:[]}, holdTime = S.holdTime || '2:30 PM';
+  var state = 'soon', sold = {sat:[], sun:[]}, left = null, maxQty = 1, holdTime = S.holdTime || '2:30 PM';
   var $ = function(id){ return document.getElementById(id); };
   var menu = $('menu'), hold = $('hold'), alertForm = $('alert');
 
@@ -418,7 +437,7 @@ footer{text-align:center}
     var l = document.createElement('label'); l.className = 'tile'; l.setAttribute('data-id', k.id);
     l.innerHTML = '<input type="radio" name="item" value="' + k.id + '"><span class="t"><img alt="" width="64" height="64" src="' + window.SS_SPRITE_URL(k.id, 4) + '">' +
       '<span><span class="n" style="display:block">' + k.name + '</span>' + (k.group === 'signature' ? '<span class="f" style="display:block">' + k.flavors + '</span>' : '') + '</span>' +
-      '<span class="flag" hidden>Door only</span><span class="dot"></span></span>';
+      '<span class="flag" hidden><b>Sold out</b><small>At the door</small></span><span class="dot"></span></span>';
     document.querySelector('.tiles[data-group="' + k.group + '"]').appendChild(l);
   });
 
@@ -455,6 +474,18 @@ footer{text-align:center}
   function item(){ var c = hold.querySelector('input[name=item]:checked'); return c ? c.value : ''; }
   function kind(id){ return KINDS.filter(function(k){ return k.id === id; })[0]; }
   function isOpen(){ return state === 'wave1_open' || state === 'wave2_open'; }
+  function qty(){ var c = hold.querySelector('input[name=qty]:checked'); return Math.max(1, Math.min(maxQty, parseInt(c ? c.value : '1', 10) || 1)); }
+  // how many of the chosen dessert can still be pre-ordered; null when the sheet doesn't say
+  function room(){ var id = item(); return id && left && left[day()] && typeof left[day()][id] === 'number' ? left[day()][id] : null; }
+  function qtyRender(){
+    var wrap = $('qty-wrap'), note = $('qty-note'), two = hold.querySelector('input[name=qty][value="2"]'), r = room();
+    wrap.hidden = maxQty < 2;
+    $('rule-qty').textContent = maxQty < 2 ? 'One dessert per person.' : 'Up to ' + maxQty + ' of one dessert per order. One order per person.';
+    var lone = maxQty >= 2 && r === 1;
+    two.disabled = maxQty < 2 || lone;
+    if (two.disabled && two.checked) hold.querySelector('input[name=qty][value="1"]').checked = true;
+    note.hidden = !lone; note.textContent = lone ? 'Just one left for pre-order.' : '';
+  }
 
   function render(){
     var open = isOpen();
@@ -498,21 +529,21 @@ footer{text-align:center}
     if ('IntersectionObserver' in window) { revealIO = new IntersectionObserver(function(es){ if (es[0].isIntersecting) { revealIO.disconnect(); revealIO = null; next(); } }, {threshold:.5}); revealIO.observe(h); }
     else next();
   }
-  function chosen(){ var k = kind(item()); $('chosen').textContent = k ? k.name + ' · ' + DAYS[day()] : 'Pick a dessert above.'; }
+  function chosen(){ qtyRender(); var k = kind(item()), q = qty(); hold.querySelector('button[type=submit]').textContent = q > 1 ? 'Hold my desserts' : 'Hold my dessert'; $('chosen').textContent = k ? (q > 1 ? q + ' × ' : '') + k.name + ' · ' + DAYS[day()] : 'Pick a dessert above.'; }
   hold.addEventListener('change', function(ev){ if (ev.target.name === 'day') render(); else chosen(); });
 
   var demoBoard = [{name:'Mina', score:2840}, {name:'Jay', score:2310}, {name:'Soo', score:1980}, {name:'Dani', score:1450}, {name:'Chris', score:990}];
   function api(method, body, action){
     if (preview) return new Promise(function(res){ setTimeout(function(){
       if (method === 'GET' && action === 'board') return res({ok:true, open:true, day:'preview', lastDay:'Dec 5', top:demoBoard.slice(0, 10)});
-      if (method === 'GET') return res({ok:true, state:preview, sold:{sat:['ssal_mango'], sun:[]}, holdTime:holdTime});
+      if (method === 'GET') { var L = {sat:{}, sun:{}}; KINDS.forEach(function(k){ L.sat[k.id] = 5; L.sun[k.id] = 5; }); L.sat.ssal_mango = 0; L.sat.rice = 1; return res({ok:true, state:preview, sold:{sat:['ssal_mango'], sun:[]}, left:L, maxQty:2, holdTime:holdTime}); }
       if (body.type === 'score') {
         var mine = demoBoard.filter(function(r){ return r.me; })[0];
         if (!mine) { mine = {name: body.firstName, score: 0, me: true}; demoBoard.push(mine); }
         mine.name = body.firstName; mine.score = Math.max(mine.score, body.score); demoBoard.sort(function(a, b){ return b.score - a.score; });
         return res({ok:true, open:true, rank: demoBoard.indexOf(mine) + 1, best: mine.score, top: demoBoard.slice(0, 10)});
       }
-      res(body.type === 'hold' ? {ok:true, code:'SS-DEMO', emailed:false} : {ok:true});
+      res(body.type === 'hold' ? {ok:true, code:'SS-DEMO', emailed:false, qty:body.qty} : {ok:true});
     }, 350); });
     if (!S.api) return Promise.resolve({ok:false, reason:'no_api'});
     var opt = method === 'GET' ? {method:'GET'} : {method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify(body)};
@@ -520,7 +551,7 @@ footer{text-align:center}
   }
   function load(){
     return api('GET').then(function(j){
-      if (j && j.ok) { state = j.state || 'soon'; sold = j.sold || sold; holdTime = j.holdTime || holdTime; }
+      if (j && j.ok) { state = j.state || 'soon'; sold = j.sold || sold; left = j.left || null; maxQty = Math.max(1, parseInt(j.maxQty, 10) || 1); holdTime = j.holdTime || holdTime; }
       else state = 'soon';
     }).catch(function(){ state = 'soon'; }).then(render);
   }
@@ -538,18 +569,18 @@ footer{text-align:center}
     var msg = hold.querySelector('.msg'), btn = hold.querySelector('button[type=submit]'), d = fields(hold), id = item(), dy = day();
     if (!id) { msg.textContent = 'Pick a dessert first.'; return; }
     if (problem(d)) { msg.textContent = problem(d); return; }
-    d.type = 'hold'; d.site = 'Seoul Sweets'; d.day = dy; d.item = id; d.itemName = kind(id).name;
+    var q = qty(); d.type = 'hold'; d.site = 'Seoul Sweets'; d.day = dy; d.item = id; d.itemName = kind(id).name; d.qty = q;
     btn.disabled = true; msg.textContent = 'Holding it...';
     api('POST', d).then(function(j){
       if (j && j.ok) {
         hold.hidden = true; $('p-done').hidden = false;
-        $('done-what').textContent = kind(id).name + ' · ' + DAYS[dy]; $('done-code').textContent = j.code || ''; $('done-img').src = window.SS_SPRITE_URL(id, 6);
+        var got = Math.max(1, parseInt(j.qty, 10) || 1); $('done-what').textContent = (got > 1 ? got + ' × ' : '') + kind(id).name + ' · ' + DAYS[dy]; $('done-code').textContent = j.code || ''; $('done-img').src = window.SS_SPRITE_URL(id, 6);
         $('done-mail').hidden = !j.emailed; $('p-done').scrollIntoView({block:'center'});
         return;
       }
-      var R = {busy:'A lot of people are on this right now. Try again in a moment.', sold_out:'Pre-orders for that one just ran out. It will be at the door, or pick another.', duplicate:'This number already has a dessert on hold. One per person.', closed:'Pre-orders just closed.'};
+      var R = {busy:'A lot of people are on this right now. Try again in a moment.', sold_out:'Pre-orders for that one just ran out. It will be at the door, or pick another.', only_left:'Just one left for pre-order. Switch to 1, or pick another.', duplicate:'This number already has an order on hold. One order per person.', closed:'Pre-orders just closed.'};
       msg.textContent = R[j && j.reason] || 'That did not go through. Please try again.';
-      if (j && (j.reason === 'sold_out' || j.reason === 'closed')) return load();
+      if (j && (j.reason === 'sold_out' || j.reason === 'closed' || j.reason === 'only_left')) return load();
     }).catch(function(){ msg.textContent = 'That did not go through. Please try again.'; }).then(function(){ btn.disabled = false; });
   });
 

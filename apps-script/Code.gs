@@ -10,7 +10,7 @@
  *
  * Tabs this script creates and uses:
  *   Config        A = Setting, B = Value, C = What it does
- *   Holds         Timestamp | Day | Dessert | First Name | Email | Mobile | SMS Consent | Wave | Code | Src | Picked Up
+ *   Holds         Timestamp | Day | Dessert | First Name | Email | Mobile | SMS Consent | Wave | Code | Src | Picked Up | Qty
  *   Signups       Timestamp | Site | First Name | Email | Mobile | SMS Consent | Src | State
  *   Barbam Picks  Timestamp | Name | Party Size | Cocktails | Night | Seating | Src
  *   Leaderboard   Timestamp | Day | Name | Mobile | Score | Boxed | Seconds | Marketing Consent | Src | Flag
@@ -31,7 +31,7 @@ var DAYS = { sat: 'Sat Dec 5', sun: 'Sun Dec 6' };
 var STATES = ['opening_soon', 'wave1_open', 'wave1_soldout', 'wave2_open', 'presale_closed'];
 var TZ = 'America/New_York';
 var HEADERS = {
-  'Holds': ['Timestamp', 'Day', 'Dessert', 'First Name', 'Email', 'Mobile', 'SMS Consent', 'Wave', 'Code', 'Src', 'Picked Up'],
+  'Holds': ['Timestamp', 'Day', 'Dessert', 'First Name', 'Email', 'Mobile', 'SMS Consent', 'Wave', 'Code', 'Src', 'Picked Up', 'Qty'],
   'Signups': ['Timestamp', 'Site', 'First Name', 'Email', 'Mobile', 'SMS Consent', 'Src', 'State'],
   'Barbam Picks': ['Timestamp', 'Name', 'Party Size', 'Cocktails', 'Night', 'Seating', 'Src'],
   'Leaderboard': ['Timestamp', 'Day', 'Name', 'Mobile', 'Score', 'Boxed', 'Seconds', 'Marketing Consent', 'Src', 'Flag'],
@@ -39,7 +39,8 @@ var HEADERS = {
 };
 var CONFIG_ROWS = [
   ['sb_state', 'opening_soon', 'What the Seoul Sweets page shows. One of: opening_soon, wave1_open, wave1_soldout, wave2_open, presale_closed. The page picks up a change on its next load.'],
-  ['wave_cap', 5, 'Holds allowed per dessert, per day, per wave.'],
+  ['wave_cap', 5, 'Desserts that can be pre-ordered per dessert, per day, per wave. Counts pieces, so an order of 2 uses 2.'],
+  ['max_per_order', 2, 'Most pieces of one dessert a guest can pre-order in one order. One order per mobile number.'],
   ['hold_time', '2:30 PM', 'Shown to guests: their dessert is held until this time.'],
   ['send_confirmation_email', true, 'TRUE = a guest who gives an email gets their hold code by email, sent from this Google account as "Seoul Sweets".'],
   ['auto_close', true, 'TRUE = when every dessert on both days reaches the cap, wave1_open flips to wave1_soldout and wave2_open flips to presale_closed by itself.'],
@@ -169,26 +170,28 @@ function doPost(e) {
     if (!ITEMS[d.item] || !DAYS[d.day]) return json_({ ok: false, reason: 'invalid' });
     var holds = readHolds_();
     for (var h = 0; h < holds.length; h++) if (holds[h].mobile === mobile || (email && holds[h].email === email)) return json_({ ok: false, reason: 'duplicate' });
-    if (count_(holds, d.day, d.item, wave) >= cfg.cap) return json_({ ok: false, reason: 'sold_out' });
+    var qty = Math.max(1, Math.min(cfg.maxQty, parseInt(d.qty, 10) || 1)), left = cfg.cap - count_(holds, d.day, d.item, wave);
+    if (left <= 0) return json_({ ok: false, reason: 'sold_out' });
+    if (qty > left) return json_({ ok: false, reason: 'only_left', left: left });
     var code = newCode_(holds);
-    ss.getSheetByName('Holds').appendRow([new Date(), DAYS[d.day], ITEMS[d.item], firstName, email, mobile, sms, wave, code, clean_(d.src, 40), false]);
-    holds.push({ day: d.day, item: d.item, wave: wave, email: email, mobile: mobile, code: code });
+    ss.getSheetByName('Holds').appendRow([new Date(), DAYS[d.day], ITEMS[d.item], firstName, email, mobile, sms, wave, code, clean_(d.src, 40), false, qty]);
+    holds.push({ day: d.day, item: d.item, wave: wave, email: email, mobile: mobile, code: code, qty: qty });
     if (cfg.autoClose && allFull_(holds, wave, cfg.cap)) setConfig_('sb_state', wave === 1 ? 'wave1_soldout' : 'presale_closed');
     var emailed = false;
     if (cfg.sendEmail && email) {
       try {
         MailApp.sendEmail({
-          to: email, name: 'Seoul Sweets', subject: 'Held: ' + ITEMS[d.item] + ', ' + DAYS[d.day] + ' (' + code + ')',
+          to: email, name: 'Seoul Sweets', subject: 'Held: ' + (qty > 1 ? qty + ' x ' : '') + ITEMS[d.item] + ', ' + DAYS[d.day] + ' (' + code + ')',
           htmlBody: '<p>Hi ' + esc_(firstName) + ',</p>' +
-            '<p>Your <b>' + ITEMS[d.item] + '</b> is on hold for <b>' + DAYS[d.day] + '</b> at Seoul Sweets, 308 5th Ave, New York.</p>' +
+            '<p>Your <b>' + (qty > 1 ? qty + ' x ' : '') + ITEMS[d.item] + '</b> ' + (qty > 1 ? 'are' : 'is') + ' on hold for <b>' + DAYS[d.day] + '</b> at Seoul Sweets, 308 5th Ave, New York.</p>' +
             '<p>Your code: <b>' + code + '</b></p>' +
-            '<p>Join the line from 1:00 PM. Your dessert is held until ' + esc_(cfg.holdTime) + '. Show this email at the counter and pay there. One dessert per person.</p>' +
+            '<p>Join the line from 1:00 PM. Your dessert is held until ' + esc_(cfg.holdTime) + '. Show this email at the counter and pay there. One order per person.</p>' +
             '<p>Seoul Sweets x Notre Don, the pastry boutique from Seongsu-dong, Seoul.</p>'
         });
         emailed = true;
       } catch (err) { emailed = false; }
     }
-    return json_({ ok: true, code: code, emailed: emailed });
+    return json_({ ok: true, code: code, emailed: emailed, qty: qty });
   } catch (err) {
     return json_({ ok: false, reason: 'error', detail: String(err) });
   } finally {
@@ -214,6 +217,7 @@ function readConfig_() {
   return {
     state: STATES.indexOf(state) >= 0 ? state : 'opening_soon',
     cap: Math.max(0, parseInt(val('wave_cap', 5), 10) || 0),
+    maxQty: Math.max(1, Math.min(4, parseInt(val('max_per_order', 2), 10) || 1)),
     holdTime: String(val('hold_time', '2:30 PM')),
     sendEmail: yes('send_confirmation_email', true),
     autoClose: yes('auto_close', true),
@@ -232,7 +236,7 @@ function readHolds_() {
   for (var i = 0; i < rows.length; i++) {
     var r = rows[i];
     if (!r[5] && !r[4]) continue;                                       // mobile and email both cleared by hand: it frees the spot
-    out.push({ day: keyOf_(DAYS, label_(r[1])), item: keyOf_(ITEMS, r[2]), email: String(r[4]).trim().toLowerCase(), mobile: phone_(r[5]), wave: parseInt(r[7], 10) || 0, code: String(r[8]) });
+    out.push({ day: keyOf_(DAYS, label_(r[1])), item: keyOf_(ITEMS, r[2]), email: String(r[4]).trim().toLowerCase(), mobile: phone_(r[5]), wave: parseInt(r[7], 10) || 0, code: String(r[8]), qty: Math.max(1, parseInt(r[11], 10) || 1) });
   }
   return out;
 }
@@ -277,13 +281,17 @@ function boardFor_(cfg, rows, mobile) {
   return out;
 }
 function stateFor_(cfg, holds) {
-  var wave = waveOf_(cfg.state), sold = { sat: [], sun: [] };
-  if (wave) for (var day in DAYS) for (var item in ITEMS) if (count_(holds, day, item, wave) >= cfg.cap) sold[day].push(item);
-  return { ok: true, state: cfg.state, sold: sold, holdTime: cfg.holdTime };
+  var wave = waveOf_(cfg.state), sold = { sat: [], sun: [] }, left = { sat: {}, sun: {} };
+  if (wave) for (var day in DAYS) for (var item in ITEMS) {
+    var n = Math.max(0, cfg.cap - count_(holds, day, item, wave));
+    left[day][item] = n;
+    if (n <= 0) sold[day].push(item);
+  }
+  return { ok: true, state: cfg.state, sold: sold, left: left, maxQty: cfg.maxQty, holdTime: cfg.holdTime };
 }
 
 function waveOf_(state) { return state === 'wave1_open' ? 1 : state === 'wave2_open' ? 2 : 0; }
-function count_(holds, day, item, wave) { var n = 0; for (var i = 0; i < holds.length; i++) if (holds[i].day === day && holds[i].item === item && holds[i].wave === wave) n++; return n; }
+function count_(holds, day, item, wave) { var n = 0; for (var i = 0; i < holds.length; i++) if (holds[i].day === day && holds[i].item === item && holds[i].wave === wave) n += holds[i].qty || 1; return n; }
 function allFull_(holds, wave, cap) { for (var day in DAYS) for (var item in ITEMS) if (count_(holds, day, item, wave) < cap) return false; return true; }
 /** A day label as text, even if Sheets turned "Mon Dec 7" into a date. */
 function label_(v) { return v instanceof Date ? Utilities.formatDate(v, TZ, 'EEE MMM d') : String(v).trim(); }
